@@ -7,7 +7,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
+  const baseUrl = import.meta.env.VITE_API_URL;
   const validateForm = () => {
     const newErrors = {};
     if (!email) newErrors.email = "Email is required.";
@@ -29,7 +29,7 @@ export default function Login() {
         }
       }
       try {
-        const res = await axios.post('http://localhost:8080/api/users/login', { email, password });
+        const res = await axios.post(`${baseUrl}/api/users/login`, { email, password });
         localStorage.setItem('token', res.data.token);
         navigate('/dashboard');
       } catch (err) {

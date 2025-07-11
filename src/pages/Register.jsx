@@ -9,6 +9,7 @@ export default function Register() {
   const [cnfPassword, setCnfPassword] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const baseUrl = import.meta.env.VITE_API_URL;
 
   const validateForm = () => {
     const newErrors = {};
@@ -32,7 +33,7 @@ export default function Register() {
     e.preventDefault();
     if (validateForm()) {
       try {
-        await axios.post('http://localhost:8080/api/users/register', { name, email, password });
+        await axios.post(`${baseUrl}/api/users/register`, { name, email, password });
         alert('Registration successful! Please login.');
         navigate('/');
       } catch (err) {
@@ -45,21 +46,21 @@ export default function Register() {
     <>
       <div className="min-h-screen flex flex-col bg-gray-100">
         {/* Header */}
-        <header className="flex items-center justify-between px-4 p-2 bg-white shadow">
-          <div className="flex items-center space-x-3">
+        <header className="flex items-center justify-between px-4 p-2 bg-[#002060] shadow sticky top-0 z-50">
+          <div className="flex items-center space-x-3 group">
             <img src="/iocl-logo.png" alt="IOCL Logo" className="w-16 h-16" />
             <div>
-              <h1 className="text-xl font-bold text-orange-700">RhinoPulse</h1>
-              <p className="text-xs text-gray-500">Powered by Indian Oil. Curated by the Internet.</p>
+              <h1 className="text-xl font-extrabold tracking-wide drop-shadow-md text-orange-500">RhinoPulse</h1>
+              <p className="text-xs font-semibold tracking-wide drop-shadow-md text-white transition group-hover:text-orange-400">Powered by Indian Oil Corporation Limited</p>
             </div>
           </div>
         </header>
 
         {/* Main Content */}
         <main className="flex-grow flex items-center justify-center px-4">
-          <div className="max-w-6xl w-full flex flex-col md:flex-row bg-white shadow-lg rounded-2xl overflow-hidden">
+          <div className="max-w-6xl w-full flex flex-col md:flex-row bg-[#002060] shadow-lg rounded-2xl overflow-hidden border border-orange-400 relative">
             {/* Left: Rhino Ji */}
-            <div className="md:w-1/2 bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-8">
+            <div className="md:w-1/2 bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-8 relative z-10">
               <img
                 src="/rhino.png"
                 alt="Indian Oil Rhino"
@@ -68,59 +69,59 @@ export default function Register() {
             </div>
 
             {/* Right: Register Form */}
-            <div className="md:w-1/2 p-10">
-              <h2 className="text-3xl font-bold text-orange-600 mb-6">Create an Account</h2>
+            <div className="md:w-1/2 p-10 relative z-10">
+              <h2 className="text-3xl font-bold text-white mb-6">Create an Account</h2>
               <form className="space-y-5" onSubmit={handleRegister}>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600">Full Name</label>
+                  <label className="block text-sm font-medium text-white">Full Name</label>
                   <input
                     type="text"
                     value={name} 
                     onChange={e => setName(e.target.value)}
-                    className="transition-all w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:shadow-lg"
+                    className="transition-all w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:shadow-lg bg-white text-[#002060]"
                     placeholder="Tony Stark"
                   /> {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600">Email</label>
+                  <label className="block text-sm font-medium text-white">Email</label>
                   <input
                     type="email"
                     value={email} 
                     onChange={e => setEmail(e.target.value)}
-                    className="transition-all w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:shadow-lg"
+                    className="transition-all w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:shadow-lg bg-white text-[#002060]"
                     placeholder="you@example.com"
                   /> {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600">Password</label>
+                  <label className="block text-sm font-medium text-white">Password</label>
                   <input
                     type="password"
                     value={password} 
                     onChange={e => setPassword(e.target.value)}
-                    className="transition-all w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:shadow-lg"
+                    className="transition-all w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:shadow-lg bg-white text-[#002060]"
                     placeholder="••••••••"
                   /> {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-600">Confirm Password</label>
+                  <label className="block text-sm font-medium text-white">Confirm Password</label>
                   <input
                     type="password"
                     value={cnfPassword} 
                     onChange={e => setCnfPassword(e.target.value)}
-                    className="transition-all w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:shadow-lg"
+                    className="transition-all w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:shadow-lg bg-white text-[#002060]"
                     placeholder="••••••••"
                   /> {errors.cnfPassword && <p className="text-sm text-red-500">{errors.cnfPassword}</p>}
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition"
+                  className="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-700 transition"
                 >
                   Register
                 </button>
               </form>
               <p className="mt-6 text-sm text-center text-gray-600">
                 Already have an account?{" "}
-                <Link to="/" className="text-orange-600 font-semibold cursor-pointer hover:underline">
+                <Link to="/" className="text-orange-500 font-semibold cursor-pointer hover:underline">
                   Log In
                 </Link>
               </p>
