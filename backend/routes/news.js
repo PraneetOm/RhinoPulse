@@ -7,24 +7,28 @@ router.get('/', async (req, res) => {
   const query = req.query.q || 'Indian Oil Corporation';
 
   try {
-    const response = await axios.get('https://newsapi.org/v2/everything', {
+    const response = await axios.get('https://gnews.io/api/v4/search', {
       params: {
         q: query,
-        sortBy: 'publishedAt',
-        language: 'en',
-        pageSize: 10,
-        apiKey: process.env.NEWS_API_KEY // ✅ this must be in params
+        lang: 'en',
+        country: 'in',
+        max: 10,
+        token: process.env.GNEWS_API_KEY
       }
     });
-    console.log(process.env.NEWS_API_KEY);
+
     res.json(response.data);
   } catch (error) {
-    console.error('🧨 FULL ERROR:', {
-        status: error?.response?.status,
-        data: error?.response?.data,
-        message: error.message,
+    console.error('🧨 GNews fetch error:', {
+      status: error?.response?.status,
+      data: error?.response?.data,
+      message: error.message
     });
-    res.status(500).json({ error: 'Failed to fetch news articles' });
+
+    res.status(500).json({
+      error: 'Failed to fetch GNews articles',
+      details: error.message
+    });
   }
 });
 
