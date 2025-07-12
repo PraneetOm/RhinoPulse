@@ -9,15 +9,13 @@ router.get('/', async (req, res) => {
 
   try {
     const response = await axios.get('https://newsapi.org/v2/everything', {
-      params: {
-        q: query,
-        sortBy: 'publishedAt',
-        language: 'en',
-        pageSize: 10,
-      },
-      headers: {
-        Authorization: `Bearer ${process.env.NEWS_API_KEY}`,
-      },
+        params: {
+            q: query,
+            sortBy: 'publishedAt',
+            language: 'en',
+            pageSize: 10,
+            apiKey: process.env.NEWS_API_KEY
+        }
     });
 
     res.json(response.data);
