@@ -1,9 +1,21 @@
 import useDarkMode from './useDarkMode';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
   const [darkMode, setDarkMode] = useDarkMode();
   const navigate = useNavigate();
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    // Update time every second
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    // Clear the interval when component unmounts
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // Clear auth token
@@ -21,10 +33,10 @@ export default function Header() {
       </Link>
 
       <span className="text-m font-medium text-orange-300">
-        {new Date().toLocaleString()}
+        {time.toLocaleString()}
       </span>
 
-      {/* Actions: Theme Toggle + Logout */}
+      {/* Actions: Theme Toggle & Logout */}
       <div className="flex items-center space-x-3 ml-4">
         <button
           onClick={() => setDarkMode(!darkMode)}

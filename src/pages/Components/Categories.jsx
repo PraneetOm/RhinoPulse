@@ -24,7 +24,11 @@ export default function CategoryGrid() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Link to={`/category/${cat.slug}`}>
+            <Link to={`/category/${cat.slug}`} 
+              onClick={() => window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            })}>
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-md transition-all p-4 flex items-center space-x-4">
                 {cat.icon}
                 <span className="text-lg font-medium dark:text-white">{cat.title}</span>
