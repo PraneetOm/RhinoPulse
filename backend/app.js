@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import cors from 'cors';
 
 app.use(cors({
   origin: 'https://rhinopulse.netlify.app',
