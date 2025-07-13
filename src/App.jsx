@@ -8,6 +8,7 @@ import StockMarketPage from './pages/Category Pages/StockMarketPage';
 import VoicesPage from './pages/Category Pages/VoicesPage';
 import PublicSentimentPage from './pages/Category Pages/SentimentPage';
 import LegalPage from './pages/Category Pages/LegalPage';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/category/voices-on-iocl" element={<VoicesPage />} />
       <Route path="/category/legal-mentions" element={<LegalPage />} />
       <Route path="/category/public-sentiment" element={<PublicSentimentPage />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
