@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
   if (cacheValid) return res.json({ tweets: cachedTweets });
 
   try {
-    const response = await axios.get('https://twitter-api45.p.rapidapi.com/search_communities_latest.php', {
+    const response = await axios.get('https://twitter-api45.p.rapidapi.com/search_latest.php', {
       params: { query },
       headers: {
         'X-RapidAPI-Key': process.env.RAPID_API_KEY,
