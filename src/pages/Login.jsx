@@ -7,7 +7,9 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const baseUrl = import.meta.env.VITE_API_URL;
+
   const validateForm = () => {
     const newErrors = {};
     if (!email) newErrors.email = "Email is required.";
@@ -22,19 +24,27 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     if (validateForm()) {
       if (email == 'temp@gmail.com') {
         if (password == '123456') {
           navigate('/dashboard');
         }
       }
-      try {
-        const res = await axios.post(`${baseUrl}/api/users/login`, { email, password });
-        localStorage.setItem('token', res.data.token);
-        navigate('/dashboard');
-      } catch (err) {
-        alert('Login failed');
+      else {
+        try {
+          const res = await axios.post(`${baseUrl}/api/users/login`, { email, password });
+          localStorage.setItem('token', res.data.token);
+          navigate('/dashboard');
+        } catch (err) {
+          alert('Login failed');
+        } finally {
+          setLoading(false);
+        }
       }
+    } else {
+      setLoading(false);
     }
   };
   return (
@@ -59,7 +69,13 @@ export default function Login() {
               src="/rhino.png"
               alt="Indian Oil Rhino"
               className="w-72 h-auto object-contain transition-transform duration-300 hover:scale-105 drop-shadow-xl"
-            />
+              />
+              {loading && (
+            <div className="flex flex-col items-center">
+              <div className="border-4 border-blue-500 border-t-transparent rounded-full w-12 h-12 animate-spin"></div>
+              <p className="mt-2 text-sm text-gray-700">Logging in...</p>
+            </div>
+          )}
           </div>
 
           {/* Right: Login Form */}
